@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexus Lab · 高级测试面板</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: '#38bdf8',
+        dark: '#0b1120',
+        card: 'rgba(15,23,42,0.65)',
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
+    }
+  }
+}
+</script>
+<style type="text/tailwindcss">
+@layer utilities {
+  .glass {
+    background: rgba(15,23,42,0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(56,189,248,0.15);
+  }
+  .glass-strong {
+    background: rgba(15,23,42,0.75);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border:1px solid rgba(56,189,248,0.2);
+  }
+  .text-gradient {
+    background: linear-gradient(90deg,#38bdf8,#a855f7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .glow {
+    box-shadow: 0 0 24px rgba(56,189,248,0.25);
+  }
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  .progress-bar {
+    transition: width 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+}
+</style>
+<style>
+*{scrollbar-width: thin;scrollbar-color:#38bdf8 #0b1120;}
+::-webkit-scrollbar{width:6px;height:6px;}
+::-webkit-scrollbar-thumb{background:#38bdf8;border-radius:99px;}
+body{
+  background: radial-gradient(circle at 20% 10%, rgba(56,189,248,0.12), transparent 40%),
+              radial-gradient(circle at 80% 70%, rgba(168,85,247,0.08), transparent 45%),
+              #0b1120;
+  min-height:100vh;
+}
+</style>
+</head>
+<body class="text-slate-200 selection:bg-primary/30">
+<div class="container mx-auto px-4 py-10 max-w-6xl">
+  <!-- 头部 -->
+  <header class="mb-10 text-center animate-float">
+    <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-gradient tracking-tight">Nexus Lab</h1>
+    <p class="text-slate-400 mt-2 text-lg">高精度前端性能 & 设备测试工作台</p>
+    <div class="inline-block glass px-4 py-2 rounded-full mt-4 text-sm text-slate-300">
+      <i class="fa fa-bolt text-primary mr-1"></i> 纯前端 · 无后端 · 本地优先
+    </div>
+  </header>
+
+  <!-- 主控制面板 -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- 网络测速模块 -->
+    <div class="glass rounded-2xl p-6 glow">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-semibold"><i class="fa fa-wifi text-primary mr-2"></i>网络测试</h2>
+        <button id="netTestBtn" class="px-4 py-1.5 bg-primary/15 hover:bg-primary/25 border border-primary/30 rounded-lg transition-all text-sm">开始测试</button>
+      </div>
+      <div class="space-y-3 text-sm">
+        <div class="flex justify-between">
+          <span class="text-slate-400">延迟 (RTT)</span>
+          <span id="rttVal">-- ms</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">下载速度</span>
+          <span id="downVal">-- Mbps</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">连接状态</span>
+          <span id="netStatus">等待开始</span>
+        </div>
+        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden mt-3">
+          <div id="netProgress" class="progress-bar h-full w-0 bg-gradient-to-r from-primary to-purple-500"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 设备信息模块 -->
+    <div class="glass rounded-2xl p-6 glow">
+      <h2 class="text-xl font-semibold mb-4"><i class="fa fa-desktop text-primary mr-2"></i>设备 & 浏览器</h2>
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between">
+          <span class="text-slate-400">浏览器</span>
+          <span id="uaBrowser">--</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">操作系统</span>
+          <span id="uaOs">--</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">屏幕分辨率</span>
+          <span id="screenRes">--</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">设备像素比</span>
+          <span id="dpr">--</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">可用内存</span>
+          <span id="memInfo">--</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">核心数</span>
+          <span id="cpuCore">--</span>
+        </div>
+      </div>
+      <div class="mt-4">
+        <button id="getInfoBtn" class="px-4 py-1.5 bg-primary/15 hover:bg-primary/25 border border-primary/30 rounded-lg transition-all text-sm">读取信息</button>
+      </div>
+    </div>
+
+    <!-- JS 基准跑分 -->
+    <div class="glass rounded-2xl p-6 glow">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-semibold"><i class="fa fa-tachometer text-primary mr-2"></i>JS 基准跑分</h2>
+        <button id="benchBtn" class="px-4 py-1.5 bg-primary/15 hover:bg-primary/25 border border-primary/30 rounded-lg transition-all text-sm">运行跑分</button>
+      </div>
+      <div class="space-y-3 text-sm">
+        <div class="flex justify-between">
+          <span class="text-slate-400">得分</span>
+          <span id="benchScore">--</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">耗时</span>
+          <span id="benchTime">-- ms</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-400">评级</span>
+          <span id="benchRank">--</span>
+        </div>
+        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden mt-3">
+          <div id="benchProgress" class="progress-bar h-full w-0 bg-gradient-to-r from-primary to-purple-500"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 颜色拾取器 -->
+    <div class="glass rounded-2xl p-6 glow">
+      <h2 class="text-xl font-semibold mb-4"><i class="fa fa-eyedropper text-primary mr-2"></i>颜色拾取</h2>
+      <div class="flex gap-3 items-center">
+        <input type="color" id="colorPicker" value="#38bdf8" class="w-14 h-14 rounded-lg cursor-pointer border-0 bg-transparent">
+        <div class="text-sm">
+          <div>HEX：<span id="hexVal">#38bdf8</span></div>
+          <div>RGB：<span id="rgbVal">rgb(56,189,248)</span></div>
+          <div>HSL：<span id="hslVal">hsl(197,93%,60%)</span></div>
+        </div>
+      </div>
+      <button id="copyColorBtn" class="mt-4 px-4 py-1.5 bg-primary/15 hover:bg-primary/25 border border-primary/30 rounded-lg transition-all text-sm">复制 HEX</button>
+    </div>
+  </div>
+
+  <!-- 日志输出面板 -->
+  <div class="glass-strong rounded-2xl p-6 mt-6">
+    <h2 class="text-lg font-semibold mb-3"><i class="fa fa-terminal text-primary mr-2"></i>控制台日志</h2>
+    <pre id="logBox" class="text-xs text-slate-300 overflow-auto h-40 whitespace-pre-wrap font-mono">> 系统就绪，等待指令...</pre>
+  </div>
+
+  <!-- 页脚 -->
+  <footer class="mt-10 text-center text-slate-500 text-sm">
+    <p>Nexus Lab Test Platform · 前端测试工作台</p>
+  </footer>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+const logBox = $("#logBox");
+function log(msg){
+  const t = new Date().toLocaleTimeString();
+  logBox.textContent += `[${t}] ${msg}\n`;
+  logBox.scrollTop = logBox.scrollHeight;
+}
+
+// 1. 设备信息读取
+$("#getInfoBtn").onclick = async ()=>{
+  log("正在读取设备信息...");
+  const ua = navigator.userAgent;
+  $("#uaBrowser").textContent = ua.match(/(Chrome|Firefox|Safari|Edge|Opera)/)?.[1] || "未知";
+  let os = "未知系统";
+  if(/Windows/.test(ua)) os="Windows";
+  if(/Mac/.test(ua)) os="macOS";
+  if(/Android/.test(ua)) os="Android";
+  if(/iPhone|iPad/.test(ua)) os="iOS";
+  if(/Linux/.test(ua)) os="Linux";
+  $("#uaOs").textContent = os;
+  $("#screenRes").textContent = `${screen.width} × ${screen.height}`;
+  $("#dpr").textContent = window.devicePixelRatio.toFixed(2);
+  $("#cpuCore").textContent = navigator.hardwareConcurrency || "不支持";
+  if(navigator.deviceMemory){
+    $("#memInfo").textContent = navigator.deviceMemory + " GB";
+  }else $("#memInfo").textContent = "无法获取";
+  log("✅ 设备信息读取完成");
+};
+
+// 2. JS跑分
+$("#benchBtn").onclick = async ()=>{
+  log("开始JS基准测试...");
+  $("#benchProgress").style.width = "0%";
+  $("#benchScore").textContent = "运行中";
+  $("#benchTime").textContent = "运行中";
+  $("#benchRank").textContent = "-";
+  await new Promise(r=>setTimeout(r,100));
+  const start = performance.now();
+  let score = 0;
+  for(let i=0;i<800000;i++){
+    score += Math.sqrt(Math.sin(i)*Math.cos(i)+Math.log(i+1));
+  }
+  const cost = performance.now() - start;
+  const finalScore = Math.round(100000 / cost);
+  $("#benchProgress").style.width = "100%";
+  $("#benchScore").textContent = finalScore;
+  $("#benchTime").textContent = cost.toFixed(2);
+  let rank = "入门";
+  if(finalScore>1200) rank="优秀";
+  else if(finalScore>600) rank="良好";
+  else if(finalScore>300) rank="中等";
+  $("#benchRank").textContent = rank;
+  log(`✅ 跑分结束，得分：${finalScore}，耗时：${cost.toFixed(2)}ms，评级：${rank}`);
+};
+
+//3. 网络延迟+测速（下载测试）
+$("#netTestBtn").onclick = async ()=>{
+  log("开始网络测试...");
+  $("#netProgress").style.width="0%";
+  $("#netStatus").textContent="测试延迟";
+  $("#rttVal").textContent="测试中";
+  $("#downVal").textContent="测试中";
+  // ping 延迟
+  const pingUrl = "https://cdn.jsdelivr.net/npm/tailwindcss@3.3.0/dist/tailwind.min.css";
+  const pingStart = performance.now();
+  try{
+    await fetch(pingUrl,{cache:"no-store",mode:"no-cors"});
+    const rtt = performance.now() - pingStart;
+    $("#rttVal").textContent = rtt.toFixed(0)+" ms";
+    log(`延迟：${rtt.toFixed(0)}ms`);
+  }catch(e){
+    $("#rttVal").textContent = "获取失败";
+    log("延迟测试异常");
+  }
+  $("#netProgress").style.width="40%";
+  $("#netStatus").textContent="下载测速";
+  // 下载测速块
+  const testFile = "https://speed.cloudflare.com/__down?bytes=1000000";
+  const downStart = performance.now();
+  try{
+    const res = await fetch(testFile,{cache:"no-store"});
+    const blob = await res.blob();
+    const downCost = performance.now() - downStart;
+    const bits = blob.size * 8;
+    const mbps = (bits / downCost / 1000).toFixed(2);
+    $("#downVal").textContent = mbps + " Mbps";
+    log(`下载速度：${mbps} Mbps`);
+  }catch(e){
+    $("#downVal").textContent = "获取失败";
+    log("下载测速异常");
+  }
+  $("#netProgress").style.width="100%";
+  $("#netStatus").textContent="完成";
+  log("✅ 网络测试全部结束");
+};
+
+//4. 颜色拾取转换
+const cp = $("#colorPicker");
+const hexEl = $("#hexVal");
+const rgbEl = $("#rgbVal");
+const hslEl = $("#hslVal");
+function hexToRgb(hex){
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return {r,g,b};
+}
+function rgbToHsl(r,g,b){
+  r/=255;g/=255;b/=255;
+  const max = Math.max(r,g,b), min = Math.min(r,g,b);
+  let h,s,l=(max+min)/2;
+  if(max===min){h=s=0;}else{
+    const d = max-min;
+    s = l>0.5 ? d/(2-max-min) : d/(max+min);
+    switch(max){
+      case r: h = ((g-b)/d + (g<b?6:0))/6;break;
+      case g: h = ((b-r)/d +2)/6;break;
+      case b: h = ((r-g)/d +4)/6;break;
+    }
+  }
+  return {h:Math.round(h*360),s:Math.round(s*100),l:Math.round(l*100)};
+}
+cp.oninput = ()=>{
+  const hex = cp.value;
+  hexEl.textContent = hex;
+  const {r,g,b}=hexToRgb(hex);
+  rgbEl.textContent = `rgb(${r},${g},${b})`;
+  const {h,s,l}=rgbToHsl(r,g,b);
+  hslEl.textContent = `hsl(${h},${s}%,${l}%)`;
+};
+$("#copyColorBtn").onclick = async ()=>{
+  await navigator.clipboard.writeText(cp.value);
+  log(`📋 已复制颜色 ${cp.value}`);
+};
+
+log("Nexus Lab 加载完成 ✨");
+</script>
+</body>
+</html>
