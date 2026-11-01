@@ -3,334 +3,334 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nexus Lab · 高级测试面板</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        primary: '#38bdf8',
-        dark: '#0b1120',
-        card: 'rgba(15,23,42,0.65)',
-      },
-      fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-      },
-    }
-  }
-}
-</script>
-<style type="text/tailwindcss">
-@layer utilities {
-  .glass {
-    background: rgba(15,23,42,0.6);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(56,189,248,0.15);
-  }
-  .glass-strong {
-    background: rgba(15,23,42,0.75);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border:1px solid rgba(56,189,248,0.2);
-  }
-  .text-gradient {
-    background: linear-gradient(90deg,#38bdf8,#a855f7);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-  .glow {
-    box-shadow: 0 0 24px rgba(56,189,248,0.25);
-  }
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-  @keyframes float {
-    0%,100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-  }
-  .progress-bar {
-    transition: width 0.35s cubic-bezier(0.4,0,0.2,1);
-  }
-}
-</style>
+<title>小沈秋游戏工作室</title>
+<meta name="description" content="小沈秋游戏工作室 - 独立游戏开发工作室">
+<link rel="icon" type="image/x-icon" href="asset/maple.ico">
 <style>
-*{scrollbar-width: thin;scrollbar-color:#38bdf8 #0b1120;}
-::-webkit-scrollbar{width:6px;height:6px;}
-::-webkit-scrollbar-thumb{background:#38bdf8;border-radius:99px;}
-body{
-  background: radial-gradient(circle at 20% 10%, rgba(56,189,248,0.12), transparent 40%),
-              radial-gradient(circle at 80% 70%, rgba(168,85,247,0.08), transparent 45%),
-              #0b1120;
-  min-height:100vh;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Microsoft Yahei", sans-serif;
+}
+:root {
+    --sq-main: #c4913d;
+    --sq-light: #e9cf92;
+    --sq-dark: #865a22;
+    --sq-bg: #13100c;
+    --sq-card: #1c1710;
+    --sq-border: rgba(196, 145, 61, 0.22);
+}
+body {
+    background-color: var(--sq-bg);
+    color: #e8e0cf;
+    line-height: 1.7;
+}
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    border-bottom: 1px solid var(--sq-border);
+    position: sticky;
+    top: 0;
+    background: var(--sq-bg);
+    z-index: 99;
+}
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--sq-light);
+}
+.nav-links a {
+    color: #b8a88e;
+    text-decoration: none;
+    margin-left: 32px;
+    transition: 0.2s;
+}
+.nav-links a:hover {
+    color: var(--sq-main);
+}
+.soon {
+    color: #776c5b !important;
+    cursor: not-allowed;
+}
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 80px 24px;
+}
+.hero {
+    text-align: center;
+    margin-bottom: 80px;
+}
+.hero h1 {
+    font-size: 44px;
+    color: #ffffff;
+    margin-bottom: 16px;
+}
+.hero-tip {
+    display: inline-block;
+    border: 1px solid var(--sq-main);
+    color: var(--sq-light);
+    padding: 8px 20px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+}
+.hero p {
+    font-size: 18px;
+    color: #b8a88e;
+    max-width: 700px;
+    margin: 0 auto;
+}
+.section {
+    margin-bottom: 60px;
+}
+.section h2 {
+    font-size: 26px;
+    color: var(--sq-light);
+    margin-bottom: 16px;
+    border-left: 4px solid var(--sq-main);
+    padding-left: 12px;
+}
+.card {
+    background: var(--sq-card);
+    border-radius: 12px;
+    padding: 28px;
+    border: 1px solid var(--sq-border);
+}
+.card p {
+    color: #c7b99c;
+    margin-bottom: 12px;
+}
+.card a{
+    color: var(--sq-main);
+    text-decoration:none;
+}
+.card a:hover{
+    text-decoration:underline;
+}
+.about-item{
+    margin:20px 0;
+    padding-left:14px;
+    border-left:2px solid rgba(196,145,61,0.25);
+}
+.about-item h4{
+    color: var(--sq-light);
+    font-size:18px;
+    margin-bottom:6px;
+}
+.contact-wrap {
+    background: #241a0f;
+    border-radius: 16px;
+    padding: 36px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    border: 1px solid rgba(196, 145, 61, 0.28);
+}
+.contact-left h3 {
+    font-size: 28px;
+    margin-bottom:16px;
+    color:#fff;
+}
+.contact-left p.desc {
+    color:#d4c3a8;
+    margin-bottom:30px;
+}
+.email-box {
+    display:inline-block;
+    border:1px solid var(--sq-main);
+    border-radius:999px;
+    padding:12px 24px;
+    color: var(--sq-light);
+    font-size:18px;
+}
+.email-box a {
+    color: var(--sq-light);
+    text-decoration:none;
+}
+.social-item {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#20180e;
+    border-radius:10px;
+    padding:14px 20px;
+    margin-bottom:14px;
+    border:1px solid rgba(196,145,61,0.20);
+}
+.social-item a{
+    color:#e8e0cf;
+    text-decoration:none;
+}
+.social-item a:hover{
+    color: var(--sq-main);
+}
+.social-name {
+    color:#e8e0cf;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+.status-wait {
+    color:#998b74;
+}
+.status-online {
+    color:#8dd89c;
+}
+footer {
+    text-align: center;
+    padding: 30px;
+    border-top: 1px solid var(--sq-border);
+    color: #8c7f6a;
+    font-size: 14px;
+}
+.footer-run-info{
+    margin-top:8px;
+    color:#a0927b;
+}
+@media (max-width:720px) {
+    nav {
+        padding:16px 20px;
+        flex-direction: column;
+        gap:12px;
+    }
+    .nav-links a {
+        margin:0 12px;
+    }
+    .hero h1 {
+        font-size:32px;
+    }
+    .contact-wrap {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 </head>
-<body class="text-slate-200 selection:bg-primary/30">
-<div class="container mx-auto px-4 py-10 max-w-6xl">
-  <!-- 头部 -->
-  <header class="mb-10 text-center animate-float">
-    <h1 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-gradient tracking-tight">Nexus Lab</h1>
-    <p class="text-slate-400 mt-2 text-lg">高精度前端性能 & 设备测试工作台</p>
-    <div class="inline-block glass px-4 py-2 rounded-full mt-4 text-sm text-slate-300">
-      <i class="fa fa-bolt text-primary mr-1"></i> 纯前端 · 无后端 · 本地优先
+<body>
+<nav>
+    <div class="logo">沈秋游戏工作室</div>
+    <div class="nav-links">
+        <a href=" https://autumnveil.j3.ink/# ">首页</a>
+        <a href=" https://autumnveil.j3.ink/# " class="soon">作品｜未开发</a>
+        <a href=" https://autumnveil.j3.ink/#about ">关于</a>
+        <a href=" https://autumnveil.j3.ink/#contact ">联系我们</a>
     </div>
-  </header>
-
-  <!-- 主控制面板 -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <!-- 网络测速模块 -->
-    <div class="glass rounded-2xl p-6 glow">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-semibold"><i class="fa fa-wifi text-primary mr-2"></i>网络测试</h2>
-        <button id="netTestBtn" class="px-4 py-1.5 bg-primary/15 hover:bg-primary/25 border border-primary/30 rounded-lg transition-all text-sm">开始测试</button>
-      </div>
-      <div class="space-y-3 text-sm">
-        <div class="flex justify-between">
-          <span class="text-slate-400">延迟 (RTT)</span>
-          <span id="rttVal">-- ms</span>
+</nav>
+<div class="container">
+    <div class="hero">
+        <div class="hero-tip">🔨 新站正在建设中，敬请期待</div>
+        <h1>小沈秋游戏工作室</h1>
+        <p>专注独立游戏、引擎定制、创意内容开发，自研沈秋引擎，打造原创游戏作品。</p>
+    </div>
+    <div class="section">
+        <h2>工作室介绍</h2>
+        <div class="card">
+            <p>小沈秋游戏工作室，是一个独立游戏开发团队，主攻 Unity / Godot 引擎开发，正在自研【沈秋引擎】。</p>
+            <p>我们专注原创游戏项目开发，同时进行脚本、地图、网站、工具开发。</p>
+            <p>工作室持续探索独立游戏的创意玩法，稳步推进项目迭代。</p>
         </div>
-        <div class="flex justify-between">
-          <span class="text-slate-400">下载速度</span>
-          <span id="downVal">-- Mbps</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-slate-400">连接状态</span>
-          <span id="netStatus">等待开始</span>
-        </div>
-        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden mt-3">
-          <div id="netProgress" class="progress-bar h-full w-0 bg-gradient-to-r from-primary to-purple-500"></div>
-        </div>
-      </div>
     </div>
 
-    <!-- 设备信息模块 -->
-    <div class="glass rounded-2xl p-6 glow">
-      <h2 class="text-xl font-semibold mb-4"><i class="fa fa-desktop text-primary mr-2"></i>设备 & 浏览器</h2>
-      <div class="space-y-2 text-sm">
-        <div class="flex justify-between">
-          <span class="text-slate-400">浏览器</span>
-          <span id="uaBrowser">--</span>
+    <div class="section" id="about">
+        <h2>ABOUT · 关于</h2>
+        <div class="card">
+            <p>成立于 2026 年 9 月 18 日</p>
+            <p>成立第 <span id="dayCount"></span> 天</p>
+            <p>一间深夜还亮着灯的小工作室</p>
+            <br>
+            <p>小沈秋游戏工作室是一支小规模的独立游戏团队。我们不追热点、不堆系统，只做自己真正相信、也会反复玩上很多遍的东西。</p>
+
+            <div class="about-item">
+                <h4>原创故事</h4>
+                <p>每一款游戏都从一段故事出发，先想清楚要讲什么，再动手敲代码。</p>
+            </div>
+            <div class="about-item">
+                <h4>像素美学</h4>
+                <p>偏好像素与手绘质感，用克制的画面，表达充沛的情绪。</p>
+            </div>
+            <div class="about-item">
+                <h4>独立精神</h4>
+                <p>小而专注：一个人也当一支队伍，慢一点也没关系。</p>
+            </div>
+            <div class="about-item">
+                <h4>长期主义</h4>
+                <p>作品未完成不急着上线，宁可慢，也要让它值得被记住。</p>
+            </div>
         </div>
-        <div class="flex justify-between">
-          <span class="text-slate-400">操作系统</span>
-          <span id="uaOs">--</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-slate-400">屏幕分辨率</span>
-          <span id="screenRes">--</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-slate-400">设备像素比</span>
-          <span id="dpr">--</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-slate-400">可用内存</span>
-          <span id="memInfo">--</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-slate-400">核心数</span>
-          <span id="cpuCore">--</span>
-        </div>
-      </div>
-      <div class="mt-4">
-        <button id="getInfoBtn" class="px-4 py-1.5 bg-primary/15 hover:bg-primary/25 border border-primary/30 rounded-lg transition-all text-sm">读取信息</button>
-      </div>
     </div>
 
-    <!-- JS 基准跑分 -->
-    <div class="glass rounded-2xl p-6 glow">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-semibold"><i class="fa fa-tachometer text-primary mr-2"></i>JS 基准跑分</h2>
-        <button id="benchBtn" class="px-4 py-1.5 bg-primary/15 hover:bg-primary/25 border border-primary/30 rounded-lg transition-all text-sm">运行跑分</button>
-      </div>
-      <div class="space-y-3 text-sm">
-        <div class="flex justify-between">
-          <span class="text-slate-400">得分</span>
-          <span id="benchScore">--</span>
+    <div class="section" id="contact">
+        <h2>联系我们</h2>
+        <p style="color:#d4c3a8;margin-bottom:24px;">合作、建议，或只是想聊聊游戏，都欢迎来信。</p>
+        <div class="contact-wrap">
+            <div class="contact-left">
+                <h3>写一封信给我们</h3>
+                <p class="desc">合作、建议，或只是想聊聊游戏，欢迎写信到下方邮箱。子网站开放时，这里也会公布更多互动渠道。</p>
+                <div class="email-box">
+                    <a href="mailto:3841286465@qq.com">✉ 3841286465@qq.com</a>
+                </div>
+            </div>
+            <div class="contact-right">
+                <div class="social-item">
+                    <div class="social-name">
+                        <span>┃┃</span> 微博
+                    </div>
+                    <span class="status-wait">筹备中</span>
+                </div>
+                <div class="social-item">
+                    <div class="social-name">
+                        <span>📀</span> Bilibili
+                    </div>
+                    <span class="status-wait">筹备中</span>
+                </div>
+                <div class="social-item">
+                    <div class="social-name">
+                        <span>💬</span> 抖音
+                    </div>
+                    <span class="status-wait">筹备中</span>
+                </div>
+                <div class="social-item">
+                    <a target="_blank" href="https://www.kuaishou.com/profile/3xcumix8t9ud6ck">
+                        <div class="social-name">
+                            <span>▶</span> 快手
+                        </div>
+                    </a>
+                    <span class="status-online">官方 · 已上线</span>
+                </div>
+            </div>
         </div>
-        <div class="flex justify-between">
-          <span class="text-slate-400">耗时</span>
-          <span id="benchTime">-- ms</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-slate-400">评级</span>
-          <span id="benchRank">--</span>
-        </div>
-        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden mt-3">
-          <div id="benchProgress" class="progress-bar h-full w-0 bg-gradient-to-r from-primary to-purple-500"></div>
-        </div>
-      </div>
     </div>
-
-    <!-- 颜色拾取器 -->
-    <div class="glass rounded-2xl p-6 glow">
-      <h2 class="text-xl font-semibold mb-4"><i class="fa fa-eyedropper text-primary mr-2"></i>颜色拾取</h2>
-      <div class="flex gap-3 items-center">
-        <input type="color" id="colorPicker" value="#38bdf8" class="w-14 h-14 rounded-lg cursor-pointer border-0 bg-transparent">
-        <div class="text-sm">
-          <div>HEX：<span id="hexVal">#38bdf8</span></div>
-          <div>RGB：<span id="rgbVal">rgb(56,189,248)</span></div>
-          <div>HSL：<span id="hslVal">hsl(197,93%,60%)</span></div>
-        </div>
-      </div>
-      <button id="copyColorBtn" class="mt-4 px-4 py-1.5 bg-primary/15 hover:bg-primary/25 border border-primary/30 rounded-lg transition-all text-sm">复制 HEX</button>
-    </div>
-  </div>
-
-  <!-- 日志输出面板 -->
-  <div class="glass-strong rounded-2xl p-6 mt-6">
-    <h2 class="text-lg font-semibold mb-3"><i class="fa fa-terminal text-primary mr-2"></i>控制台日志</h2>
-    <pre id="logBox" class="text-xs text-slate-300 overflow-auto h-40 whitespace-pre-wrap font-mono">> 系统就绪，等待指令...</pre>
-  </div>
-
-  <!-- 页脚 -->
-  <footer class="mt-10 text-center text-slate-500 text-sm">
-    <p>Nexus Lab Test Platform · 前端测试工作台</p>
-  </footer>
 </div>
+<footer>
+© 2026 小沈秋游戏工作室 · 保留所有权利
+<div class="footer-run-info" id="runTimer">本站已运行 <span id="runTime"></span> · 自工作室成立起持续运转，永远不停</div>
+</footer>
 
 <script>
-const $ = s => document.querySelector(s);
-const $$ = s => document.querySelectorAll(s);
-const logBox = $("#logBox");
-function log(msg){
-  const t = new Date().toLocaleTimeString();
-  logBox.textContent += `[${t}] ${msg}\n`;
-  logBox.scrollTop = logBox.scrollHeight;
+//自动计算成立天数
+const startDate = new Date('2026-09-18');
+const diffTime = Math.abs(new Date() - startDate);
+const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+document.getElementById('dayCount').innerText = diffDays;
+
+//运行计时器 天时分秒
+function updateRunTime(){
+    const start = new Date("2026-09-18");
+    const current = new Date();
+    let ms = current - start;
+    const days = Math.floor(ms / (1000*60*60*24));
+    ms = ms % (1000*60*60*24);
+    const hours = Math.floor(ms / (1000*60*60));
+    ms = ms % (1000*60*60);
+    const minutes = Math.floor(ms / (1000*60));
+    ms = ms % (1000*60);
+    const seconds = Math.floor(ms / 1000);
+    document.getElementById("runTime").innerText = `${days} 天 ${hours} 时 ${minutes} 分 ${seconds} 秒`;
 }
-
-// 1. 设备信息读取
-$("#getInfoBtn").onclick = async ()=>{
-  log("正在读取设备信息...");
-  const ua = navigator.userAgent;
-  $("#uaBrowser").textContent = ua.match(/(Chrome|Firefox|Safari|Edge|Opera)/)?.[1] || "未知";
-  let os = "未知系统";
-  if(/Windows/.test(ua)) os="Windows";
-  if(/Mac/.test(ua)) os="macOS";
-  if(/Android/.test(ua)) os="Android";
-  if(/iPhone|iPad/.test(ua)) os="iOS";
-  if(/Linux/.test(ua)) os="Linux";
-  $("#uaOs").textContent = os;
-  $("#screenRes").textContent = `${screen.width} × ${screen.height}`;
-  $("#dpr").textContent = window.devicePixelRatio.toFixed(2);
-  $("#cpuCore").textContent = navigator.hardwareConcurrency || "不支持";
-  if(navigator.deviceMemory){
-    $("#memInfo").textContent = navigator.deviceMemory + " GB";
-  }else $("#memInfo").textContent = "无法获取";
-  log("✅ 设备信息读取完成");
-};
-
-// 2. JS跑分
-$("#benchBtn").onclick = async ()=>{
-  log("开始JS基准测试...");
-  $("#benchProgress").style.width = "0%";
-  $("#benchScore").textContent = "运行中";
-  $("#benchTime").textContent = "运行中";
-  $("#benchRank").textContent = "-";
-  await new Promise(r=>setTimeout(r,100));
-  const start = performance.now();
-  let score = 0;
-  for(let i=0;i<800000;i++){
-    score += Math.sqrt(Math.sin(i)*Math.cos(i)+Math.log(i+1));
-  }
-  const cost = performance.now() - start;
-  const finalScore = Math.round(100000 / cost);
-  $("#benchProgress").style.width = "100%";
-  $("#benchScore").textContent = finalScore;
-  $("#benchTime").textContent = cost.toFixed(2);
-  let rank = "入门";
-  if(finalScore>1200) rank="优秀";
-  else if(finalScore>600) rank="良好";
-  else if(finalScore>300) rank="中等";
-  $("#benchRank").textContent = rank;
-  log(`✅ 跑分结束，得分：${finalScore}，耗时：${cost.toFixed(2)}ms，评级：${rank}`);
-};
-
-//3. 网络延迟+测速（下载测试）
-$("#netTestBtn").onclick = async ()=>{
-  log("开始网络测试...");
-  $("#netProgress").style.width="0%";
-  $("#netStatus").textContent="测试延迟";
-  $("#rttVal").textContent="测试中";
-  $("#downVal").textContent="测试中";
-  // ping 延迟
-  const pingUrl = "https://cdn.jsdelivr.net/npm/tailwindcss@3.3.0/dist/tailwind.min.css";
-  const pingStart = performance.now();
-  try{
-    await fetch(pingUrl,{cache:"no-store",mode:"no-cors"});
-    const rtt = performance.now() - pingStart;
-    $("#rttVal").textContent = rtt.toFixed(0)+" ms";
-    log(`延迟：${rtt.toFixed(0)}ms`);
-  }catch(e){
-    $("#rttVal").textContent = "获取失败";
-    log("延迟测试异常");
-  }
-  $("#netProgress").style.width="40%";
-  $("#netStatus").textContent="下载测速";
-  // 下载测速块
-  const testFile = "https://speed.cloudflare.com/__down?bytes=1000000";
-  const downStart = performance.now();
-  try{
-    const res = await fetch(testFile,{cache:"no-store"});
-    const blob = await res.blob();
-    const downCost = performance.now() - downStart;
-    const bits = blob.size * 8;
-    const mbps = (bits / downCost / 1000).toFixed(2);
-    $("#downVal").textContent = mbps + " Mbps";
-    log(`下载速度：${mbps} Mbps`);
-  }catch(e){
-    $("#downVal").textContent = "获取失败";
-    log("下载测速异常");
-  }
-  $("#netProgress").style.width="100%";
-  $("#netStatus").textContent="完成";
-  log("✅ 网络测试全部结束");
-};
-
-//4. 颜色拾取转换
-const cp = $("#colorPicker");
-const hexEl = $("#hexVal");
-const rgbEl = $("#rgbVal");
-const hslEl = $("#hslVal");
-function hexToRgb(hex){
-  const r = parseInt(hex.slice(1,3),16);
-  const g = parseInt(hex.slice(3,5),16);
-  const b = parseInt(hex.slice(5,7),16);
-  return {r,g,b};
-}
-function rgbToHsl(r,g,b){
-  r/=255;g/=255;b/=255;
-  const max = Math.max(r,g,b), min = Math.min(r,g,b);
-  let h,s,l=(max+min)/2;
-  if(max===min){h=s=0;}else{
-    const d = max-min;
-    s = l>0.5 ? d/(2-max-min) : d/(max+min);
-    switch(max){
-      case r: h = ((g-b)/d + (g<b?6:0))/6;break;
-      case g: h = ((b-r)/d +2)/6;break;
-      case b: h = ((r-g)/d +4)/6;break;
-    }
-  }
-  return {h:Math.round(h*360),s:Math.round(s*100),l:Math.round(l*100)};
-}
-cp.oninput = ()=>{
-  const hex = cp.value;
-  hexEl.textContent = hex;
-  const {r,g,b}=hexToRgb(hex);
-  rgbEl.textContent = `rgb(${r},${g},${b})`;
-  const {h,s,l}=rgbToHsl(r,g,b);
-  hslEl.textContent = `hsl(${h},${s}%,${l}%)`;
-};
-$("#copyColorBtn").onclick = async ()=>{
-  await navigator.clipboard.writeText(cp.value);
-  log(`📋 已复制颜色 ${cp.value}`);
-};
-
-log("Nexus Lab 加载完成 ✨");
+updateRunTime();
+setInterval(updateRunTime,1000);
 </script>
 </body>
 </html>
