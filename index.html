@@ -128,7 +128,7 @@ nav {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
-    border: 1px solid rgba(196, 145, 61, 0.28);
+    border: 1px solid rgba(196,145,61,0.28);
 }
 .contact-left h3 {
     font-size: 28px;
@@ -191,6 +191,56 @@ footer {
     margin-top:8px;
     color:#a0927b;
 }
+
+/* ========== 公告弹窗样式 ========== */
+.announce-mask{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.75);
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.announce-box{
+    width:90%;
+    max-width:560px;
+    background:#1c1710;
+    border:1px solid var(--sq-main);
+    border-radius:14px;
+    padding:28px;
+}
+.announce-title{
+    color:var(--sq-light);
+    font-size:20px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+.announce-date{
+    color:#998b74;
+    font-size:13px;
+    margin-bottom:16px;
+}
+.announce-content{
+    color:#d4c3a8;
+    line-height:1.75;
+    margin-bottom:24px;
+}
+.announce-close{
+    width:100%;
+    padding:11px;
+    background:transparent;
+    border:1px solid var(--sq-main);
+    color:var(--sq-light);
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.2s;
+}
+.announce-close:hover{
+    background:rgba(196,145,61,0.18);
+}
+
 @media (max-width:720px) {
     nav {
         padding:16px 20px;
@@ -210,6 +260,19 @@ footer {
 </style>
 </head>
 <body>
+
+<!-- 公告弹窗 -->
+<div class="announce-mask" id="announceMask">
+    <div class="announce-box">
+        <div class="announce-title">📢 网站迁移公告</div>
+        <div class="announce-date">发布日期：2026年11月07日</div>
+        <div class="announce-content">
+各位玩家大家好，小沈秋游戏工作室旧网站现已正式完成迁移切换。今后本站将作为我们唯一官方主站，全新官网地址为：<strong>https://shenqiu.ravarj.cn/</strong>。请大家务必收藏好这个新域名，方便后续访问。旧域名将会逐步下线，后续不再更新任何内容、公告以及项目进度。新站点正在持续搭建完善，未来我们会在这里发布游戏开发日志、作品预告、版本更新通知以及工作室相关动态。非常感谢大家长久以来的陪伴、关注与支持，我们会继续用心打磨原创游戏项目，稳步推进沈秋引擎和各类作品开发，不辜负每一位玩家的期待。
+        </div>
+        <button class="announce-close" id="closeAnnounce">知道了，关闭</button>
+    </div>
+</div>
+
 <nav>
     <div class="logo">沈秋游戏工作室</div>
     <div class="nav-links">
@@ -332,6 +395,14 @@ function updateRunTime(){
 }
 updateRunTime();
 setInterval(updateRunTime,1000);
+
+// ========== 公告弹窗逻辑：每次打开页面都会弹出 ==========
+const mask = document.getElementById("announceMask");
+const closeBtn = document.getElementById("closeAnnounce");
+mask.style.display = "flex";
+closeBtn.onclick = function(){
+    mask.style.display = "none";
+}
 </script>
 </body>
 </html>
